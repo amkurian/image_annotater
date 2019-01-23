@@ -61,6 +61,11 @@ class ItemsController < ApplicationController
     end
   end
 
+  def get_labels
+    labels = Item.find(params[:id]).labels
+    render json: labels
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_073338) do
+ActiveRecord::Schema.define(version: 2019_01_23_083458) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,19 @@ ActiveRecord::Schema.define(version: 2019_01_23_073338) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "text"
+    t.string "context"
+    t.float "x_value"
+    t.float "y_value"
+    t.float "width"
+    t.float "height"
+    t.integer "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_labels_on_item_id"
   end
 
 end

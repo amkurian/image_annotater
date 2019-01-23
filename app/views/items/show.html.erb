@@ -12,8 +12,171 @@
 
 <p>
   <strong>Image:</strong>
-  <%= @item.image %>
+  <div>
+  <%= image_tag(@item.image.url, size: "800x500", id: "annotatable")%>
+  </div>
 </p>
+
+
+<script>
+	$( document ).ready(function() {
+    init();
+    function init() {
+    anno.makeAnnotatable(document.getElementById('annotatable'));
+     anno.addHandler('onAnnotationCreated', function(annotation) {
+     		debugger;
+        var text = annotation.text;
+        var context = annotation.src;
+        var x = annotation.shapes[0].geometry.x;
+        var y = annotation.shapes[0].geometry.y;
+        var width = annotation.shapes[0].geometry.width;
+        var height = annotation.shapes[0].geometry.height;
+        var id = 6;
+		    $.ajax({
+			    type: 'POST',
+			    url: "/labels/",
+			    data: {
+			    	label :{
+			    		text:text,context:context,x_value:x,y_value:y,width:width,height:height,item_id:id
+			    	} 
+			    },
+			    success: function(data) {}
+			  });
+    });
+
+    anno.addHandler('onAnnotationUpdated', function(annotation) {
+     		debugger;
+        var text = annotation.text;
+        var context = annotation.src;
+        var x = annotation.shapes[0].geometry.x;
+        var y = annotation.shapes[0].geometry.y;
+        var width = annotation.shapes[0].geometry.width;
+        var height = annotation.shapes[0].geometry.height;
+        var id = 6;
+        var label_id = annotation.shapes[0].geometry["label_id"];
+		    $.ajax({
+			    type: 'PUT',
+			    url: "/labels/"+label_id,
+			    data: {
+			    	label :{
+			    		text:text,context:context,x_value:x,y_value:y,width:width,height:height,item_id:id
+			    	} 
+			    },
+			    success: function(data) {}
+			  });
+    });
+
+
+    anno.addHandler('onAnnotationRemoved', function(annotation) {
+     		debugger;
+        var text = annotation.text;
+        var context = annotation.src;
+        var x = annotation.shapes[0].geometry.x;
+        var y = annotation.shapes[0].geometry.y;
+        var width = annotation.shapes[0].geometry.width;
+        var height = annotation.shapes[0].geometry.height;
+        var id = 6;
+        var label_id = annotation.shapes[0].geometry["label_id"];
+		    $.ajax({
+			    type: 'DELETE',
+			    url: "/labels/"+label_id,
+			    data: {
+			    	label :{
+			    		text:text,context:context,x_value:x,y_value:y,width:width,height:height,item_id:id
+			    	} 
+			    },
+			    success: function(data) {}
+			  });
+    });
+    
+    var annotation_array = []
+
+		$.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/items/get_labels",
+        data: {
+        	id: 6
+        },
+        success: function(data){
+        	$.each(data, function() {
+        		var myAnnotation = {}
+					  $.each(this, function(k, v) {
+					  	if(k == 'text'){
+					      myAnnotation["text"] = v;
+					    }
+					    if(k == 'id'){
+					      myAnnotation["id"] = v;
+					    }
+					    if(k == 'context'){
+					      myAnnotation["src"] = v;
+					    }
+					    if(k == 'x_value'){
+					    	myAnnotation['x_value'] = v;
+					    }
+					    if(k == 'y_value'){
+					    	myAnnotation['y_value'] = v;
+					    }
+					    if(k == 'height'){
+					    	myAnnotation['height'] = v;
+					    }
+					    if(k == 'width'){
+					    	myAnnotation['width'] = v;
+					    }
+					  });
+					  var annotation = create_annotation(myAnnotation);
+					  anno.addAnnotation(annotation)
+					});
+        }
+    });
+
+    create_annotation = function(myAnnotation_hash){
+    	var myAnnotation = {
+		    /** The URL of the image where the annotation should go **/
+		    src : myAnnotation_hash["src"],
+
+		    /** The annotation text **/
+		    text : myAnnotation_hash["text"],
+		    /** The annotation shape **/
+		    shapes : [{
+		        /** The shape type **/
+		        type : 'rect',
+
+		        /** The shape geometry (pixel coordinates) **/
+		        geometry : { x : parseFloat(myAnnotation_hash["x_value"]), y: parseFloat(myAnnotation_hash["y_value"]), width : parseFloat(myAnnotation_hash["width"]), height: parseFloat(myAnnotation_hash["height"]),label_id: myAnnotation_hash["id"] }
+		    }]
+		}
+    	return myAnnotation;
+    } 
+  }
+  });
+
+  
+</script>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
+
+<script type="text/javascript">
+	var myAnnotation = {
+    /** The URL of the image where the annotation should go **/
+    src : "http://localhost:3000/uploads/item/image/6/1_sZSVVtdP9TE3mUoGh4GoYA.png",
+
+    /** The annotation text **/
+    text : 'My annotation',
+
+    /** The annotation shape **/
+    shapes : [{
+        /** The shape type **/
+        type : 'rect',
+
+        /** 'units' only required for pixel coordinates **/
+        units: 'pixel',
+
+        /** The shape geometry (pixel coordinates) **/
+        geometry : { x : 10, y: 10, width : 40, height: 60 }
+    }]
+}
+</script>
+
+

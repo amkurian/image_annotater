@@ -21,7 +21,10 @@
 <script>
 	$( document ).ready(function() {
     init();
+
+// Add the plugin like so
     function init() {
+
     anno.makeAnnotatable(document.getElementById('annotatable'));
      anno.addHandler('onAnnotationCreated', function(annotation) {
      		debugger;
@@ -40,9 +43,12 @@
 			    		text:text,context:context,x_value:x,y_value:y,width:width,height:height,item_id:id
 			    	} 
 			    },
-			    success: function(data) {}
+			    success: function(data) {
+
+			    }
 			  });
     });
+
 
     anno.addHandler('onAnnotationUpdated', function(annotation) {
      		debugger;
@@ -65,8 +71,7 @@
 			    success: function(data) {}
 			  });
     });
-
-
+    
     anno.addHandler('onAnnotationRemoved', function(annotation) {
      		debugger;
         var text = annotation.text;
@@ -130,6 +135,8 @@
         }
     });
 
+
+
     create_annotation = function(myAnnotation_hash){
     	var myAnnotation = {
 		    /** The URL of the image where the annotation should go **/
@@ -156,27 +163,5 @@
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
-
-<script type="text/javascript">
-	var myAnnotation = {
-    /** The URL of the image where the annotation should go **/
-    src : "http://localhost:3000/uploads/item/image/6/1_sZSVVtdP9TE3mUoGh4GoYA.png",
-
-    /** The annotation text **/
-    text : 'My annotation',
-
-    /** The annotation shape **/
-    shapes : [{
-        /** The shape type **/
-        type : 'rect',
-
-        /** 'units' only required for pixel coordinates **/
-        units: 'pixel',
-
-        /** The shape geometry (pixel coordinates) **/
-        geometry : { x : 10, y: 10, width : 40, height: 60 }
-    }]
-}
-</script>
 
 

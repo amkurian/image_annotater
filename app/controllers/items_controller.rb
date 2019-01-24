@@ -66,6 +66,12 @@ class ItemsController < ApplicationController
     render json: labels
   end
 
+  def get_labels_array
+    labels = Item.find(params[:id]).labels
+    labels = labels.map(&:text);
+    render json: labels
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item

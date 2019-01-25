@@ -1,0 +1,36 @@
+.autotagging-editor-container {
+  min-height:20px;
+  padding:3px 0px;  
+  background:url('semtagging-editor-container.png');
+  padding:4px 10px;
+}
+
+.autotagging-tag {
+  margin:2px 4px 2px 0px;
+  line-height:140%;
+  font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
+  font-size:12px;
+  background-color:#383838;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+  -khtml-border-radius:3px;
+  border-radius:3px;
+  border:1px solid #888;
+  color:#ccc;
+  text-decoration:none;
+  display:inline-block;
+  padding:2px 4px;
+}
+
+.autotagging-editor-tag {
+
+}
+
+.autotagging-popup-tag {
+
+}
+
+.autotagging-editor-tag:hover {
+  background-color:#484848;
+}
+

@@ -1,22 +1,29 @@
-var annotation_array = ['Dogs', 'Cats'];
-
 annotorious.plugin.AutoCompleteDropdown = function(opt_config_options) {
-
+  this._annotation_array = [];
 }
 
 
 annotorious.plugin.AutoCompleteDropdown.prototype.onInitAnnotator = function(annotator) {
-  autocomplete($(annotator.editor.element).find('textarea'), annotation_array);
+  var self = this;
+  self._loadAnnotations(anno);
+  debugger;
+  autocomplete($(annotator.editor.element).find('textarea'), self._annotation_array );
+}
+
+annotorious.plugin.AutoCompleteDropdown.prototype._loadAnnotations = function(){
+  var self = this;
+  jQuery.getJSON('http://localhost:3000/items/get_labels_array1?id=6', function(data) {
+  })
+
+  // self._annotation_array.push('Dogs1', 'Cats');
 }
 
 function autocomplete(inp, arr) {
   /*the autocomplete function takes two arguments,
   the text field element and an array of possible autocompleted values:*/
-
   var currentFocus;
   /*execute a function when someone writes in the text field:*/
   inp.bind("input", function(e) {
-      debugger;
       var div_tag, input_tag, i, val = inp.val();
       /*close any already open lists of autocompleted values*/
       closeAllLists();

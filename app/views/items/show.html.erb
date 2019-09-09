@@ -27,7 +27,6 @@
 
     anno.makeAnnotatable(document.getElementById('annotatable'));
      anno.addHandler('onAnnotationCreated', function(annotation) {
-     		debugger;
         var text = annotation.text;
         var context = annotation.src;
         var x = annotation.shapes[0].geometry.x;
@@ -51,7 +50,6 @@
 
 
     anno.addHandler('onAnnotationUpdated', function(annotation) {
-     		debugger;
         var text = annotation.text;
         var context = annotation.src;
         var x = annotation.shapes[0].geometry.x;
@@ -73,7 +71,6 @@
     });
     
     anno.addHandler('onAnnotationRemoved', function(annotation) {
-     		debugger;
         var text = annotation.text;
         var context = annotation.src;
         var x = annotation.shapes[0].geometry.x;

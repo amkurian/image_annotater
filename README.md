@@ -1,24 +1,10 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+bundle install
 
-Things you may want to cover:
+rails db:create
 
-* Ruby version
+rails db:migrate
 
-* System dependencies
+rails s
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The blog post related to the code https://medium.com/better-programming/image-annotation-app-in-ruby-on-rails-using-annotorious-library-1fe4fc07fdb6
